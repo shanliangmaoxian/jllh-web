@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.jllh.dao.WorkOrderDao">
+
+   <insert id="insert">
+       INSERT INTO
+			work_order
+        (
+            sys_ntype,
+            sys_cpyname,
+            sys_cpyid,
+            sys_user,
+            sys_pas,
+            sys_remark,
+            sys_createtime,
+            sys_createuser,
+            sys_updatetime,
+            sys_is_update,
+            sys_updateuser
+        )
+        VALUES
+        (
+            #{sysNtype},
+            #{sysCpyname},
+            #{sysCpyid},
+            #{sysUser},
+            #{sysPas},
+            #{sysRemark},
+            #{sysCreatetime},
+            #{sysCreateuser},
+            #{sysUpdatetime},
+            #{sysIsUpdate},
+            #{sysUpdateuser}
+        )
+   </insert>
+
+    <update id="update">
+        UPDATE
+			work_order
+		SET
+			sys_updatetime = #{sysUpdatetime},
+			sys_is_update = #{sysIsUpdate},
+			sys_updateuser = #{sysUpdateuser}
+		WHERE
+			id = #{id}
+    </update>
+
+    <select id="select" resultType="com.jllh.beans.WorkOrderBean">
+        SELECT
+			id AS id,
+			sys_ntype AS sysNtype,
+			sys_cpyname AS sysCpyname,
+			sys_cpyid AS sysCpyid,
+			sys_user AS sysUser,
+			sys_pas AS sysPas,
+			sys_remark AS sysRemark,
+			sys_createtime AS sysCreatetime,
+			sys_createuser AS sysCreateuser,
+			sys_updatetime AS sysUpdatetime,
+			sys_is_update AS sysIsUpdate,
+			sys_updateuser AS sysUpdateuser
+		FROM
+			work_order
+		ORDER BY
+			sys_is_update,sys_createtime desc
+    </select>
+
+    <select id="findById" resultType="com.jllh.beans.WorkOrderBean">
+        SELECT
+			id AS id,
+			sys_ntype AS sysNtype,
+			sys_cpyname AS sysCpyname,
+			sys_cpyid AS sysCpyid,
+			sys_user AS sysUser,
+			sys_pas AS sysPas,
+			sys_remark AS sysRemark,
+			sys_createtime AS sysCreatetime,
+			sys_createuser AS sysCreateuser,
+			sys_updatetime AS sysUpdatetime,
+			sys_is_update AS sysIsUpdate,
+			sys_updateuser AS sysUpdateuser
+		FROM
+			work_order
+		WHERE
+		    id = #{id}
+    </select>
+</mapper>
