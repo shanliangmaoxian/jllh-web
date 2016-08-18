@@ -54,7 +54,7 @@ public class WorkOrderController {
         this.workOrderService.insert(workOrderBean);
         model.addAttribute("msg", "添加成功!");
 
-        response.sendRedirect("/");
+        response.sendRedirect("/jllh");
         return null;
     }
 
@@ -81,7 +81,7 @@ public class WorkOrderController {
         workOrderBean.setSysIsUpdate(isupdate);
         this.workOrderService.update(workOrderBean);
         try{
-            response.sendRedirect("/");
+            response.sendRedirect("/jllh");
         }catch (Exception e){
             System.out.println("转发异常");
         }

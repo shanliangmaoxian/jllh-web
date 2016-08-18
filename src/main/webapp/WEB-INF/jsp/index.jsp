@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <title>佳旅联合内部系统</title>
+    <title>佳旅联合内部工单系统</title>
 
     <style>
         a{
@@ -21,7 +21,7 @@
         function  checkForm() {
             var sysNtype = document.getElementById("sysNtype").value;
             sysNtype = sysNtype==1?"地接":sysNtype==2?"专线":sysNtype==3?"组团":"直营";
-            var makeSure = confirm("确定是"+sysNtype+"系统吗?");
+            var makeSure = confirm("确定是’"+sysNtype+"‘系统吗?");
             if(!makeSure) return false;
 
             var sysCreateuser = document.getElementById("sysCreateuser").value;
@@ -47,17 +47,17 @@
             return true;
         }
         
-//        function updateForm(id) {
-//            if(confirm("确定已经解决了么?")){
-//                window.location = "/work/order/update?id="+id;
-//            }
-//        }
+        function closeForm(id) {
+            if(confirm("确定要关闭么?")){
+                window.location = "/jllh/work/order/delete?id="+id;
+            }
+        }
     </script>
 </head>
 <body>
 <div>
     <div>
-        <form method="post" action="/work/order/insert" id="form1" onsubmit="return checkForm();">
+        <form method="post" action="/jllh/work/order/insert" id="form1" onsubmit="return checkForm();">
             <table>
                 <tr>
                     <td>系统类型</td>
@@ -69,6 +69,9 @@
                             <option value="4">直营</option>
                         </select>
                     </td>
+					<td colspan="2">
+						<span style="color:red">注意选择系统类型</span>
+					</td>
                 </tr>
                 <tr>
                     <td>企业ID</td>
@@ -101,7 +104,12 @@
         </form>
     </div>
 
+    <a href="http://dj.jialvlianhe.com" target="_blank">地接</a>
+    <a href="http://zx.jialvlianhe.com" target="_blank">专线</a>
+    <a href="http://zt.jialvlianhe.com" target="_blank">组团</a>
+    <a href="http://zy.jialvlianhe.com" target="_blank">直营</a>
 
+    <br/>
     <div>
 
         <table border="1" width="100%">
@@ -114,9 +122,9 @@
                 <td>登录密码</td>
                 <td>提交人</td>
                 <td>提交时间</td>
-                <td>修改内容</td>
-                <td>是否解决</td>
-                <td>解决时间</td>
+                <td width="30%">修改内容</td>
+                <td>状态</td>
+                <td>更新时间</td>
                 <td>操作</td>
             </tr>
             <c:forEach items="${workOrder}" var="item" varStatus="idx">
@@ -167,7 +175,9 @@
                     </td>
                     <td><fmt:formatDate value="${item.sysUpdatetime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                     <td>
-                        <a href="/work/order/delete?id=${item.id}">关闭</a>
+                        <c:if test="${item.sysIsUpdate == 0}">
+                            <a href="javascript:;" onclick="closeForm('${item.id}')">关闭</a>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>
